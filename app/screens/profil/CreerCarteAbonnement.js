@@ -20,18 +20,17 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Storage } from 'expo-storage';
 
-
 import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 import { NavigationContainer } from "@react-navigation/native";
-
+import DatePicker from 'react-native-datepicker';
 import RNPickerSelect from "react-native-picker-select";
 import styles from "../../config/styles/StyleGeneral";
 
 import * as ImagePicker from 'expo-image-picker';
-
+import Checkbox from "expo-checkbox";
 export default function CreerCarteAbonnement({ navigation }) {
   
-  
+
   const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
   
   const [Nom, setNom] = useState("");
@@ -56,7 +55,28 @@ export default function CreerCarteAbonnement({ navigation }) {
  const [partner_festival, setPartner_festival] = useState("");
  const [reduced_card, setReduced_card] = useState("");
 
+ const [modalVisible, setModalVisible] = useState(false);
+
+ const [ModalJustifVisible, setModalJustifVisible] = useState(false);
   
+ 
+ const handleJustificatif = (event) => {
+  setModalVisible(!modalVisible);
+  let m = "Génération de nouveau mot de passe en cours...";
+  "ios" === Platform.OS
+  ? Toast.show(m, Toast.SHORT)
+  : ToastAndroid.show(m, ToastAndroid.SHORT);
+};
+
+
+ const pickerStyle = {
+  inputIOS: {
+    textAlign: "right",
+    marginRight: 20,
+    height: 50,
+  },
+};
+const [date, setDate] = useState('20-06-2022');
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     //  let result = await ImagePicker.launchImageLibraryAsync({
@@ -165,189 +185,381 @@ return (
   <View
   
   style={{
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    top: "0%",
+    flexDirection: "column",
+    width: "90%",
+    margin: "5%",
+    marginLeft: "5%",
+    marginRight: "5%",
+    height: "100%",
   }}
   
   key="creerCartesAbonnement"
   >
-  <ScrollView>
-  <Text style={{ fontSize: 20 }}>Créer une carte d'abonnement</Text>
-  <Text style={{ fontSize: 20 }}>Type de carte</Text>
-  
-  <RNPickerSelect
+  <ScrollView style={{ flex: 1 }}>
+  <Text style={styles.ParagraphBold}>Vos informations</Text>
   
   
-  value={card_type_id}
-  onValueChange={(value) =>
-    {
-      setCard_type_id(value);
-      //setFieldValue("type_public", value)
-      
-    }
-  }
-  
-  items={[
-    { label: "Normale", value: "Normale," },
-    { label: "12/15", value: "12/15" },
-    { label: "transport", value: "transport" },
-    { label: "tarif réduit", value: "tarif réduit" },
-    { label: "culture", value: "culture" },
-  ]}
-  />
-
-  <Text style={{ fontSize: 20 }}>Nom</Text>
   <TextInput
-  
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
-  onChangeText={(text) => setNom(text)}
-  value={Nom}
-  />
-  
-  <Text style={{ fontSize: 20 }}>Prenom</Text>
-  <TextInput
-  
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
+  style={styles.inputStyle}
   onChangeText={(text) => setPrenom(text)}
   value={Prenom}
+  placeholder="Prénom * "  placeholderTextColor="rgba(0,0,0,0.3)" 
   />
-  
-  <Text style={{ fontSize: 20 }}>Adresse</Text>
   <TextInput
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
-  onChangeText={(text) => setAdresse(text)}
-  value={Adresse}
+  style={styles.inputStyle}
+  onChangeText={(text) => setNom(text)}
+  value={Nom}
+  placeholder="Nom * "  placeholderTextColor="rgba(0,0,0,0.3)" 
   />
-  
-  <Text style={{ fontSize: 20 }}>Code postal</Text>
+<DatePicker
+        style={styles.inputStyle}
+        //date={this.state.date}
+        mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate="2016-05-01"
+        maxDate="2016-06-01"
+        confirmBtnText="Confirmer"
+        cancelBtnText="Annuler"
+        customStyles={{
+          dateIcon: {
+            display: 'none',
+          },
+          dateInput: {
+            borderColor: 'rgba(0,0,0,0)',
+          },
+          placeholderText: {
+            textAlign: 'left',
+            width: '100%',
+          },
+          // ... You can check the source to find the other keys.
+        }}
+        //onDateChange={(date) => {this.setState({date: date})}}
+      />
+
   <TextInput
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
+  style={styles.inputStyle}
   onChangeText={(text) => setCodePostal(text)}
   value={CodePostal}
+  placeholder="Code postal * "  placeholderTextColor="rgba(0,0,0,0.3)" 
   />
   
-  <Text style={{ fontSize: 20 }}>Ville</Text>
-  <TextInput
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
-  onChangeText={(text) => setVille(text)}
-  value={Ville}
-  />
-  <Text style={{ fontSize: 20 }}>Telephone</Text>
-  <TextInput
-  keyboardType={'phone-pad'}
-  style={{
-    height: 40,
-    width: "80%",
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  }}
-  onChangeText={(text) => setTelephone(text)}
-  value={Telephone}
-  />
-  <Text style={{ fontSize: 20 }}>Pays</Text>
-  
-  <RNPickerSelect
-  //style={pickerStyle}
-  
-  
-  placeholder={{
-    label: Pays,
-    value: Pays,
-  }}
-  
-  
-  value={Pays}
-  onValueChange={(value) =>
-    {
-      setPays(value);
-      //setFieldValue("type_public", value)
+  <View
+    style={{
+      padding: 15,
+      flexDirection: "row",
+      alignContent: "space-between",
+      alignItems: "center",
+      width: '100%',
+      height: 45,
+      borderRadius: 35,
+      backgroundColor: '#e9e8e8',
+      paddingRight:  20,
+      paddingLeft: 20,
+      marginTop: 10,
+      marginBottom: 10,
+    }}
+  >
+    <Text>Pays</Text>
+    <View
+      style={{
+        width: "70%",
+        right: 0,
+        position: "absolute",
+        minHeight: 30,
+      }}
+    >
+      <RNPickerSelect
+      style={pickerStyle}
+      placeholder={{
+        label: Pays,
+        value: Pays,
+      }}
       
-    }
-  }
-  
-  items={[
-    { label: "France", value: "France" },
-    { label: "Belgique", value: "Belgique" },
-    { label: "USA", value: "USA" },
-    // { label: "Public non francophone", value: "Public non francophone", },
-  ]}
-  />
-  
-  
-  
-  <Text style={{ fontSize: 20 }}>Livraison</Text>
-  
-  <RNPickerSelect
-  //style={pickerStyle}
-  
-  
-  placeholder={{
-    label: livraison,
-    value: livraison,
-  }}
-  
-  
-  value={livraison}
-  onValueChange={(value) =>
-    {
-      setLivraison(value);
-      //setFieldValue("type_public", value)
       
-    }
-  }
+      value={Pays}
+      onValueChange={(value) =>
+        {
+          setPays(value);
+          //setFieldValue("type_public", value)
+          
+        }
+      }
+      placeholder={{
+        label: "Sélectionner votre Pays",
+        value: "",
+      }}
+      
+      items={[
+        { label: "France", value: "France" },
+        { label: "Belgique", value: "Belgique" },
+        { label: "USA", value: "USA" },
+        // { label: "Public non francophone", value: "Public non francophone", },
+      ]}
+      />
+    </View>
+  </View>
+
+
+  <View
+    style={{
+      padding: 15,
+      flexDirection: "row",
+      alignContent: "space-between",
+      alignItems: "center",
+      width: '100%',
+      height: 45,
+      borderRadius: 35,
+      backgroundColor: '#e9e8e8',
+      paddingRight:  20,
+      paddingLeft: 20,
+      marginTop: 10,
+      marginBottom: 10,
+    }}
+  >
+    <Text>Carte *</Text>
+    <View
+      style={{
+        width: "90%",
+        right: 0,
+        position: "absolute",
+        minHeight: 30,
+      }}
+    >
+      <RNPickerSelect
+      style={pickerStyle}
+        value={card_type_id}
+        onValueChange={(value) =>
+          {
+            setCard_type_id(value);
+            //setFieldValue("type_public", value)
+
+            
+          }
+        }
+        placeholder={{
+          label: "Je bénéficie d'un tarif préférentiel ?",
+          value: "",
+        }}
+        
+        items={[
+          { label: "Plein tarif", value: "Plein tarif" },
+          { label: "Résidents (Gd Avignon, Vaucluse & ORIZO)", value: "Residents" },
+          { label: "Jeunes 12-25 ans", value: "Jeunes" },
+          { label: "Tarif réduit (RSA, PSH, Sans emploi)", value: "reduit" },
+          { label: "Pass Culture / Patch Culture", value: "culture" },
+        ]}
+        />
+
+    </View>
+  </View>
+
+
+
+
+
+  <Pressable
+  // A MASQUER SI ON CLIQUE SUR PLEIN TARIF SUR LE CHAMP card-type_id
+  onPress={() => setModalJustifVisible(!ModalJustifVisible)}
+  >
+    <View  style={[styles.labelCard,styles.bigButton, {marginBottom: 10}]} >
+                <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}>Ajouter mon justificatif </Text></View>
+</Pressable>
+            
+
+
+  <Modal
+            animationType={'slide'}
+            hardwareAccelerated={true}
+            transparent={false}
+            visible={ModalJustifVisible}
+            
+            onRequestClose={() => {
+              //Alert.alert('Modal has been closed.');
+              setModalJustifVisible(!ModalJustifVisible);
+              
+            }}>
+            
+            
+            <View style={{ margin: 0, height: '100%', padding: 30, paddingTop: 100 }}>
+            <Text  style={{fontSize: 16,width: "100%",fontWeight: "bold", textAlign: "center"}}>Télécharger mon justificatif</Text>
+            
+            
+            <TextInput
+            style={styles.inputStyle}
+            //onChangeText={(text) => DownloadJustificatif(text)}
+            //value={DownloadJustificatif}
+            placeholder="Charger le justificatif"  placeholderTextColor="rgba(0,0,0,0.3)" 
+            />
+
+
+
+<View style={{backgroundColor: '#e8e8e8', padding: 15, borderRadius: 15, marginBottom: 10}}>
+<Text style={[styles.ParagraphBold, styles.smallTextNoirDix]}>Attention ! Cliquer sur Valider vaut acceptation de ceci :</Text>
+<Text style={styles.smallTextNoirDix}>• J’accepte de fournir un scan de mon justificatif domicile de moins de 3 mois pour accéder à ce tarif. </Text>
+<Text style={styles.smallTextNoirDix}>• Tous les justificatifs sont vérifiés avant édition de la carte et vous devrez payer un complément si ceux-ci ne sont pas valables.</Text>
+<Text style={styles.smallTextNoirDix}>• Ce document justificatif sera stocké sur un serveur sécurisé et sera supprimé au plus tard le 5 août 2022.</Text>
+</View>
+
+<View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginTop: 25,
+                            marginBottom: 10,
+                          }}
+                          >
+<Checkbox
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginRight: 10,
+                          }}
+                          //value={isChecked}
+                          //onValueChange={setChecked}
+                          //color={isChecked ? "#f26522" : undefined}
+                          />
+        <Text style={[styles.moyenText, {maxWidth: '90%'}]}
+                          >Je ne souhaite pas fournir de justificatif et <Text style={styles.ParagraphBold}>accepte de payer ma carte au plein tarif (16 €)</Text></Text>
+      </View>
+
+
+
+
+            
+            <TouchableOpacity onPress={() => setModalJustifVisible(!ModalJustifVisible)}           >
+            <View  style={[styles.labelCard, styles.labelAchat, styles.bigButton]} >
+            <Text style={styles.textBigButton}>Envoyer</Text>
+            </View>
+            </TouchableOpacity>
+            
+            
+            
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          </View>
+          </Modal>
   
-  items={[
-    { label: "Sur place", value: "Sur place" },
-    { label: "A distance", value: "A distance" },
-    { label: "test", value: "test" },
-    // { label: "Public non francophone", value: "Public non francophone", },
-  ]}
-  />
-  <Button 
-  title="Prendre une photo" onPress={pickImage} />
-  {image && <Image source={{ uri: image }} style={{ width: 20, height: 20 }} />}
-  <Button
-  title="Créer"
-  onPress={() => {
+
+
+
+
+
+
+
+
+
+  <Pressable
+  onPress={pickImage} 
+  >
+    <View  style={[styles.labelCard,styles.bigButton]} >
+                <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}>Prendre ma photo</Text></View>
+</Pressable>
+
+
+    {image && <Image source={{ uri: image }} style={{ width: 20, height: 20 }} />}
+
+
+
+
+
+
+
+
+
+
+
+<View>
+    <Text style={[styles.ParagraphBold, {marginTop: 20}]}>Comment je récupère ma carte ?</Text></View>
+  <View
+    style={{
+      padding: 15,
+      flexDirection: "row",
+      alignContent: "space-between",
+      alignItems: "center",
+      width: '100%',
+      height: 45,
+      borderRadius: 35,
+      backgroundColor: '#e9e8e8',
+      paddingRight:  20,
+      paddingLeft: 20,
+      marginTop: 10,
+      marginBottom: 10,
+    }}
+  >
+    <View
+    >
+ 
+    <RNPickerSelect
+    //style={pickerStyle}
     
-    addCarteAbonnement();
     
-  }}
-  />
+    style={pickerStyle}
+
+    placeholder={{
+      label: "Sur place, en livraison ?",
+      value: "",
+    }}
+    
+    
+    value={livraison}
+    onValueChange={(value) =>
+      {
+        setLivraison(value);
+        //setFieldValue("type_public", value)
+        
+      }
+    }
+    
+    items={[
+      { label: "Sur place en point Off", value: "Sur place" },
+      { label: "Livrée chez moi pour 7 €", value: "A distance" },
+      { label: "test", value: "test" },
+      // { label: "Public non francophone", value: "Public non francophone", },
+    ]}
+    />
+
+    </View>
+  </View>
+
+
+
   </ScrollView>
+
+
+
+
+  <View
+        style={{
+          flex: 2,
+          position: "absolute",
+          bottom: 140,
+          width: "90%",
+          marginLeft: "5%",
+          textAlign: "center",
+        }}
+      >
+
+
+    <Pressable
+      onPress={() => {         addCarteAbonnement();  }}
+      style={[styles.labelCard, styles.labelAchat, styles.bigButton]}
+    >
+      <Text style={[styles.textBigButton]}>Valider</Text>
+    </Pressable>
+
+  </View>
+
+
+
   </View>
   
   

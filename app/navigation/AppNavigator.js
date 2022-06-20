@@ -96,6 +96,10 @@ const state = useSelector((state) => state);
     if(route.name=="CartesAbonnement"){
       titre ='Mes cartes d\'abonnement';
     }
+    
+    if(route.name=="CreerCarteAbonnement"){
+      titre ='Créer ma carte d\'abonnement';
+    }
     if(route.name=="Factures"){
       titre ='Mes factures';
     }
@@ -385,6 +389,33 @@ const state = useSelector((state) => state);
         </Pressable>
         </View>
         );
+
+
+        } else if  ((route.name=="CreerCarteAbonnement")) {
+
+          return (
+          <View style={[styles.headerLeft]}>
+          <Pressable onPress={() => navigation.navigate(("CartesAbonnement"))}
+          style={({pressed}) => [
+            {},
+            styles.buttonMenu,
+          ]}
+  
+          >
+          <Image
+              style={{
+                resizeMode: "cover",
+                height: 25,
+                width: 25,
+              }}
+              source={require("../assets/back.png")}
+            />
+          </Pressable>
+          </View>
+          );
+  
+
+
 
       } else if ((route.name=="Inscription")) {
 

@@ -412,7 +412,7 @@ axios(config)
 onPress={() => navigation.navigate("CreerCarteAbonnement")}
 >
   <View  style={[styles.labelCard,styles.bigButton, styles.labelAchat]} >
-              <Text style={styles.textBigButton}> Créer un brouillon</Text></View>
+              <Text style={styles.textBigButton}>Acheter une nouvelle carte</Text></View>
 </Pressable>
 
   

@@ -146,6 +146,10 @@ export default StyleSheet.create({
      color: '#221f1f',
      fontSize: 8,
     },
+    smallTextNoirDix: {
+      color: '#221f1f',
+      fontSize: 10,
+     },
     TextFicheClair: {
       color: '#e8e8e8',
     },
