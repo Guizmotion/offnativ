@@ -86,8 +86,6 @@ export default function ProfilMenu({ navigation }) {
 
   //test test 2 test Teste2
 
-  
-
   return (
     <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%',  paddingTop: 0}}>
          
