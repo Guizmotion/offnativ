@@ -1,0 +1,173 @@
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  useIsFocused,
+  ToastAndroid,
+  Image,
+  Text,
+  TextInput,
+  DrawerContentScrollView,
+  View,
+  StyleSheet,
+  ScrollViewButton,
+  ScrollView,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+  TouchableWithoutFeedback,
+} from "react-native";
+import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
+import styles from "../../config/styles/StyleGeneral";
+
+/*
+{state.isAuthenticated && (
+  <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
+  
+  )}
+  */
+
+export default function CreerCarteAbonnement({ navigation }) {
+
+ 
+  const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
+/*
+                  "id": 1,    
+                "statut" : "brouillon",
+                    "numero_carte" : "123456789",
+                    "code_promo": "",
+                    "structure": "",
+                    "nom" : "perodo",
+                    "prenom" : "nico",
+                    "adresse" : "rue de la paix",
+                    "ville" : "paris",
+                    "codePostal" : "75000",
+                    "telephone" : "0123456789",
+                    "pays" : "france",
+                    "livraison" : "courrier",
+                    "photo": ""
+                    */
+  const [Nom, setNom] = useState("");
+  const [Prenom, setPrenom] = useState("");
+  const [Adresse, setAdresse] = useState("");
+  const [CodePostal, setCodePostal] = useState("");
+  const [Ville, setVille] = useState("");
+  const [Pays, setPays] = useState("");
+  const [Telephone, setTelephone] = useState("");
+  const [livraison, setLivraison] = useState("");
+
+  
+  //console.log('id_carte:'+id_carte);
+
+  const handleSubmit = () => {
+    console.log("submit");
+  //  console.log(stateCartesAbonnement.Cartes);
+
+    if (Nom == "" || Prenom == "" ){
+      //|| Adresse == "" || CodePostal == "" || Ville == "" || Pays == "" || Telephone == "" || livraison == "") {
+      ToastAndroid.show("Veuillez remplir tous les champs", ToastAndroid.SHORT);
+    } else {
+      dispatchCartesAbonnement({
+        type: "ADD_CARTE_ABONNEMENT",
+        payload: {
+          id: stateCartesAbonnement.Cartes.length + 1,
+          statut: "brouillon",
+          numero_carte: "",
+          code_promo: "",
+          structure: "",
+          nom: Nom,
+          prenom: Prenom,
+          adresse: Adresse,
+          ville: Ville,
+          codePostal: CodePostal,
+          telephone: Telephone,
+          pays: Pays,
+          livraison: livraison,
+          photo: "",
+        },
+      });
+
+    }
+    navigation.navigate("CartesAbonnement");
+  };
+
+  
+
+  
+
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        top: "10%",
+      }}
+
+      key={stateCartesAbonnement.Cartes.length}
+    >
+      <Text style={{ fontSize: 20 }}>Créer une carte d'abonnement</Text>
+     
+  
+      <TextInput
+        style={styles.input}
+        placeholder="Prénom"
+        onChangeText={(text) => setPrenom(text)}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Nom"
+        onChangeText={(text) => setNom(text)}
+      />
+
+      <TextInput
+          style={styles.input}
+          placeholder="Adresse"
+          onChangeText={(text) => setAdresse(text)}
+        />
+
+      <TextInput
+          style={styles.input}
+          placeholder="Code Postal"
+          onChangeText={(text) => setCodePostal(text)}
+        />
+
+      <TextInput
+          style={styles.input}
+          placeholder="Ville"
+          onChangeText={(text) => setVille(text)}
+        />
+
+      <TextInput  
+
+          style={styles.input}
+          placeholder="Pays"
+          onChangeText={(text) => setPays(text)}
+        />
+
+      <TextInput
+          style={styles.input}
+          placeholder="Téléphone"
+          onChangeText={(text) => setTelephone(text)}
+        />
+
+      <TextInput
+
+          style={styles.input}
+          placeholder="Livraison"
+          onChangeText={(text) => setLivraison(text)}
+        />
+
+      
+
+
+      <Pressable onPress={handleSubmit}>
+        <View style={[styles.labelCard, styles.labelAchat]}>
+          <Text style={styles.textBigButton}>Suivant</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+}

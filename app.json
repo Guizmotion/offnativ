@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Festival Off",
+    "slug": "festival-off",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./app/assets/icon.png",
+    "splash": {
+      "image": "./app/assets/screen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "AVIGNON2019",
+      "supportsTablet": true,
+      "buildNumber": "2.0.0"
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.festivalloff.app",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./app/assets/favicon.png"
+    },
+    "description": "app du festival off"
+  }
+}

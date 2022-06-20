@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "670065083610",
+    "project_id": "festival-off-rn",
+    "storage_bucket": "festival-off-rn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670065083610:android:6af058024023dda0a951e3",
+        "android_client_info": {
+          "package_name": "com.festivalloff.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670065083610-ij7givlkmsflu8qadqeejjijlh7aqhnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0G9BH0GYFjoScJWLN0DvYXvGYtIPGN2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670065083610-ij7givlkmsflu8qadqeejjijlh7aqhnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

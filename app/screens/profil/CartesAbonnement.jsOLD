@@ -1,0 +1,472 @@
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  useIsFocused,
+  ToastAndroid,
+  Image,
+  Text,
+  TextInput,
+  DrawerContentScrollView,
+  View,
+  StyleSheet,
+  ScrollViewButton,
+  ScrollView,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+  TouchableWithoutFeedback,
+} from "react-native";
+import axios from "axios";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import styles from "../../config/styles/StyleGeneral";
+import { StoreContext } from "../../store/store";
+import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
+import { ListItem } from "react-native-elements";
+
+
+
+export default function CartesAbonnement({ navigation }) {
+  const handleSubmit = () => {
+    navigation.navigate("CreerCarteAbonnement");
+    console.log("submit");
+  };
+
+  const { state, dispatch } = React.useContext(StoreContext);
+  const { stateCartesAbonnement, dispatchCartesAbonnement } = React.useContext( CartesAbonnementContext );
+  const [Cartes, setCartes] = useState([stateCartesAbonnement.Cartes]);
+
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible2, setIsModalVisible2] = useState(false);
+  const [isModalVisible3, setIsModalVisible3] = useState(false);
+  const [isModalVisible4, setIsModalVisible4] = useState(false);
+  const [isModalVisible5, setIsModalVisible5] = useState(false);
+  const [isModalVisible6, setIsModalVisible6] = useState(false);
+  const [isModalVisible7, setIsModalVisible7] = useState(false);
+  const [isModalVisible8, setIsModalVisible8] = useState(false);
+  const [isModalVisible9, setIsModalVisible9] = useState(false);
+  const [isModalVisible10, setIsModalVisible10] = useState(false);
+
+  const [id_carte, setId_carte] = useState("");
+  const [statut, setStatut] = useState("");
+  const [numero_carte, setNumero_carte] = useState("");
+  const [code_promo, setCode_promo] = useState("");
+  const [structure, setStructure] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [adresse, setAdresse] = useState("");
+  const [ville, setVille] = useState("");
+  const [codePostal, setCodePostal] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [pays, setPays] = useState("");
+  const [livraison, setLivraison] = useState("");
+  const [photo, setPhoto] = useState("");
+
+
+
+
+
+  const getCarte = (i) => {
+
+
+    AsyncStorage.getItem("carte_" + i)
+                .then((value) => {
+                  console.log(value);
+                  let carte_temp = JSON.parse(value);
+                }).catch((error) => {
+      console.log(error);
+
+    });
+  
+
+    return carte_temp;
+  }
+
+  const getCartesFromStorage = () => {
+    let cartes = [];
+    for(let i = 0; i < 10; i++){
+      let carte_temp = getCarte(i);
+      cartes.push(carte_temp);
+    }
+    return cartes;
+  }
+
+
+  useEffect(() => {
+    setCartes(getCartesFromStorage());
+  }, []);
+
+  const renderItem = ({ item }) => {
+    return (
+      <ListItem
+
+        title={item.numero_carte}
+        subtitle={item.statut}
+        leftAvatar={{ source: { uri: item.photo } }}
+        
+        />
+    );
+
+  }
+
+  const renderSeparator = () => {
+    return (
+      <View
+
+        style={{ height: 1, backgroundColor: "#CED0CE" }}
+      />
+    );
+  }
+
+  const renderHeader = () => {
+    return (
+      <View style={{ height: 50, backgroundColor: "#CED0CE" }}>
+        <Text>Header</Text>
+      </View>
+    );
+  }
+
+  const renderFooter = () => {
+    return (
+      <View style={{ height: 50, backgroundColor: "#CED0CE" }}>
+        <Text>Footer</Text>
+      </View>
+    );
+  }
+
+  const renderEmpty = () => {
+    return (
+
+      <View style={{ height: 50, backgroundColor: "#CED0CE" }}>
+        <Text>Empty</Text>
+      </View>
+    );
+  }
+
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 2000);
+  }
+
+  const onEndReached = () => {
+    setIsRefreshing(true);
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 2000);
+
+  }
+
+  const renderScrollViewContent = () => {
+    return (
+      <FlatList
+
+        data={Cartes}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id_carte}
+        ItemSeparatorComponent={renderSeparator}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={renderEmpty}
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+      />
+    );
+
+  }
+
+  const renderModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => {
+          setIsModalVisible(false);
+        }
+        }>
+        <View style={styles.modal}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Voulez-vous vraiment supprimer cette carte ?
+            </Text>
+            <View style={styles.modalButton}>
+              <Button
+
+                title="Oui"
+                onPress={() => {
+                  setIsModalVisible(false);
+                }
+                }
+              />
+              <Button
+
+                title="Non"
+                onPress={() => {
+                  setIsModalVisible(false);
+                }
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+
+  } 
+
+
+
+
+
+
+
+
+ // useEffect(() => {
+
+//console.log(Cartes);
+
+/*
+AsyncStorage.getItem('carte_3')
+.then( function (value) {
+   console.log(  JSON.parse(value) );
+
+   dispatchCartesAbonnement({
+    type: "ADD_CARTE_ABONNEMENT",
+    payload: {
+      id: value.id,
+      statut: "brouillon",
+      numero_carte: "123456789",
+      code_promo: "",
+      structure: "",
+      nom: value.nom,
+      prenom: value.prenom,
+      adresse: value.adresse,
+      ville: value.ville,
+      codePostal: value.odePostal,
+      telephone: value.telephone,
+      pays: value.pays,
+      livraison: value.livraison,
+      photo: "",
+    },
+  });
+  
+
+
+});*/
+/*
+for(let i = 0; i < 10; i++){
+  let carte_temp = getCarte(i);
+  console.log(carte_temp);
+ // setCartes(carte_temp);
+}
+
+setCartes(stateCartesAbonnement.Cartes);
+*/
+
+ // }, []);
+
+
+  //}, [stateCartesAbonnement.Cartes]);
+
+
+  //const cartesStateData = getCartesStateData(); 
+// dispatchCartesAbonnement({
+//   type: "ADD_CARTE_ABONNEMENT",
+//   payload: getCartesStateData()
+//   });  
+
+/*
+  const getCartesStateData = () => {
+
+    let cartesStateData = [];
+    
+    for(let i = 0; i < 10; i++){
+      let carte_temp = getCarte(i);
+      cartesStateData.push(carte_temp);
+    }
+
+  
+    return cartesStateData;
+  }
+
+  const getCarte = (i) => {
+    let carte_temp = {
+      id: i,
+      statut: "brouillon",
+      numero_carte: "123456789",
+      code_promo: "",
+      structure: "",
+      nom: "perodo",
+      prenom: "nico",
+      adresse: "rue de la paix",
+      ville: "paris",
+      codePostal: "75000",
+      telephone: "0123456789",
+      pays: "france",
+      livraison: "courrier",
+      photo: "",
+    };
+    return carte_temp;
+  }
+
+  const getCartes = () => {
+    let cartes = [];
+    for(let i = 0; i < 10; i++){
+      let carte_temp = getCarte(i);
+      cartes.push(carte_temp);
+    }
+    return cartes;
+  }
+
+  const getCartesFromStorage = () => {
+    let cartes = [];
+    for(let i = 0; i < 10; i++){
+      let carte_temp = getCarte(i);
+      cartes.push(carte_temp);
+    }
+    return cartes;
+  }
+
+
+  useEffect(() => {
+    setCartes(getCartesFromStorage());
+  }, []);
+
+  const handleDelete = (id) => {
+    console.log("delete");
+    console.log(id);
+    dispatchCartesAbonnement({
+      type: "DELETE_CARTE_ABONNEMENT",
+      payload: id,
+    });
+  }
+
+ 
+
+  const handleValidate = (id) => {
+    console.log("validate");
+    console.log(id);
+    dispatchCartesAbonnement({
+      type: "VALIDATE_CARTE_ABONNEMENT",
+      payload: id,
+    });
+
+    ToastAndroid.showWithGravity(
+      "Carte validée",
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM
+    );
+  }
+
+  const handleBrouillon = (id) => {
+    console.log("brouillon");
+    console.log(id);
+    dispatchCartesAbonnement({
+      type: "BROUILLON_CARTE_ABONNEMENT",
+      payload: id,
+    });
+
+    ToastAndroid.showWithGravity(
+      "Carte en brouillon",
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM
+    );
+
+  }
+
+  const handleCarte = (id) => {
+    console.log("carte");
+    console.log(id);
+    navigation.navigate("CarteAbonnement", { id: id });
+  }
+
+
+
+useEffect(() => {
+  setCartes(stateCartesAbonnement.Cartes);
+}, [stateCartesAbonnement.Cartes]);
+
+
+  */
+
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        top: "0%",
+      }}
+
+      key="listecarte"
+    >
+      <Text style={{ fontSize: 20 }}>Mes cartes achetés</Text>
+      <Text style={{ fontSize: 20 }}>Mes brouillons</Text>
+      
+
+
+
+      {
+      Cartes
+      //.filter((item) => (item.value !== ""))
+      .map((item, i) => 
+      
+      (
+        
+        <View 
+        key={item.id}
+
+
+        style={{
+          // flex: 1,
+         
+          width: '100%',
+          
+        }}
+        >
+        
+        <Pressable 
+        
+        onPress={()  =>
+          {
+            //clickButton(item)
+            handleEdit(item.id);
+
+          }}
+          >
+          <Text style={{textAlign: 'center',  padding: 15,fontSize: 24}}>{item.nom}</Text>
+          </Pressable>
+          </View>
+          ))
+        }
+
+
+
+
+      <Text style={{ fontSize: 20 }}>Mes autres cartes</Text>
+      <Text style={{ fontSize: 20 }}>Associer une carte</Text>
+
+      <Pressable onPress={() => navigation.navigate("CreerCarteAbonnement")}>
+        <View style={[styles.labelCard, styles.labelAchat]}>
+          <Text style={styles.textBigButton}>Acheter une nouvelle carte</Text>
+        </View>
+      </Pressable>
+    </View>
+  );
+ 
+}
+
+
+ 

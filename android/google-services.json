@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "900103250614",
+    "firebase_url": "https://avignonleoff-1.firebaseio.com",
+    "project_id": "avignonleoff-1",
+    "storage_bucket": "avignonleoff-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900103250614:android:d5689cb902574de7",
+        "android_client_info": {
+          "package_name": "com.festivalloff.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900103250614-q6uoi4m1sc2pc7ts2un9cmaenr2vfh1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtI0bBnKdKJsuTtBe0g_irFqZ1afh7rCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900103250614-q6uoi4m1sc2pc7ts2un9cmaenr2vfh1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
