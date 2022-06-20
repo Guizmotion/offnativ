@@ -362,7 +362,9 @@ axios(config)
   </View>
 
   <Pressable
-  onPress={() => props.navigation.navigate("CarteAbonnementWebview")}
+  onPress={() => {
+    navigation.navigate("CarteAbonnementWebview");
+  }}
   >
     <View  style={[styles.labelCard,styles.bigButton, {width: '80%', marginTop: -35}]} >
                 <Text style={{color: '#fff', textAlign: 'center', width: '100%'}}> Découvrez tous les avantages</Text></View>

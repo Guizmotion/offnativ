@@ -105,7 +105,6 @@ const state = useSelector((state) => state);
     }
 
 
-
     if(route.name=="ListDateSpectacle"){
       titre ='Choisir une date';
       return (
@@ -547,7 +546,6 @@ const state = useSelector((state) => state);
           <Drawer.Screen name="CarteAbonnementWebview" component={CarteAbonnementWebview} />
           <Drawer.Screen name="Archives" component={Archives} />
           <Drawer.Screen name="Partenaires" component={Partenaires} />
-          
           <Drawer.Screen name="Login" component={Login} />
           <Drawer.Screen name="Inscription" component={Inscription} />
           <Drawer.Screen name="ProfilMenu" component={ProfilMenu} />
@@ -563,7 +561,7 @@ const state = useSelector((state) => state);
         name="ShoppingCart"
         component={ShoppingCart}
       />
-      <Drawer.Screen name="CartPay" component={CartPay} />
+      <Drawer.Screen name="Validation de ma commande" component={CartPay} />
           </Drawer.Navigator>
           );
         };
