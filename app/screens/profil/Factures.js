@@ -25,7 +25,6 @@ import {CartesAbonnementContext} from "../../store/storeCartesAbonnement";
 import styles from "../../config/styles/StyleGeneral";
 import { FlatList } from "react-native-gesture-handler";
 
-
 /*
 {state.isAuthenticated && (
   <Text style={{fontSize: 20}}>Bonjour{state.user.nom}</Text>
