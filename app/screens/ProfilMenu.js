@@ -84,6 +84,8 @@ export default function ProfilMenu({ navigation }) {
     console.log("favoris enregistrés");
   }, []);
 
+  //test 
+  
   return (
     <View style={{ width: "100%", backgroundColor: "#fff", padding:20, height: '100%',  paddingTop: 0}}>
          
