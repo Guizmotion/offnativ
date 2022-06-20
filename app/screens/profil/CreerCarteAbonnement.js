@@ -344,10 +344,10 @@ return (
         
         items={[
           { label: "Plein tarif", value: "Plein tarif" },
-          { label: "Résidents (Gd Avignon, Vaucluse & ORIZO)", value: "Residents" },
-          { label: "Jeunes 12-25 ans", value: "Jeunes" },
-          { label: "Tarif réduit (RSA, PSH, Sans emploi)", value: "reduit" },
-          { label: "Pass Culture / Patch Culture", value: "culture" },
+          { label: "Résidents (Gd Avignon, Vaucluse & ORIZO)", value: "Résidents (Gd Avignon, Vaucluse & ORIZO)" },
+          { label: "Jeunes 12-25 ans", value: "Jeunes 12-25 ans" },
+          { label: "Tarif réduit (RSA, PSH, Sans emploi)", value: "Tarif réduit (RSA, PSH, Sans emploi)" },
+          { label: "Pass Culture / Patch Culture", value: "Pass Culture / Patch Culture" },
         ]}
         />
 

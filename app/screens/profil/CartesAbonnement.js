@@ -122,7 +122,7 @@ Je l’ai géré au base64 comme pour les photos. Je n’ai pas reussi à combin
   "card_birthday": "12/12/1960",
   "card_postalcode": "30000",
   "card_country": "FR",
-  "card_type_id": 1,
+  "card_type_id": item.card_type_id,
   "card_photo": 'data:image/jpeg;base64,' +item.photo
 
 });
@@ -240,7 +240,7 @@ axios(config)
       <View key={item.id}>
        <View style={{flexDirection: 'row', margin: 20}}>
        
-        <View style={{width: '20%', flex: 1}}>
+        <View style={{width: '20%', flex: 1, alignItems: 'center',alignSelf: 'center'}}>
       
         <TouchableOpacity
                   style={ {backgroundColor: "#e8e8e8", padding: 10, width: 40, height: 40, borderRadius: 30}}
@@ -267,7 +267,7 @@ axios(config)
           
       <View style={{width: '80%'}}>
       <Text style={styles.ParagraphBold}>Carte d'abonnement</Text>
-      
+      <Text ellipsizeMode="tail" numberOfLines={1} >{item.card_type_id}</Text>
       <Text style={styles.ParagraphBold}>{item.nom} {item.prenom}</Text>
       </View>
       </View>
