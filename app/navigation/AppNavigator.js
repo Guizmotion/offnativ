@@ -114,7 +114,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -150,7 +150,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -185,7 +185,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -220,7 +220,7 @@ const state = useSelector((state) => state);
                 <Text style={{   
                   fontSize: 20,
                   fontWeight: "bold",
-                  width: '97%',textAlign: 'center'
+                  width: '90%',textAlign: 'center'
              }}>
                 {titre}
                 </Text>
@@ -254,7 +254,7 @@ const state = useSelector((state) => state);
         <Text style={{   
           fontSize: 20,
      fontWeight: "bold",
-     width: '97%',textAlign: 'center'
+     width: '90%',textAlign: 'center'
 
      }}>
         Rechercher
@@ -262,7 +262,7 @@ const state = useSelector((state) => state);
        
         
         <View
-        style={{ }}
+        style={{position: 'absolute', right: 0 }}
       >
         <Pressable
           
@@ -284,8 +284,8 @@ const state = useSelector((state) => state);
     
     
     return (
-      <View style={[styles.headView]}>
-      <Text style={[styles.titrePage, { alignSelf: "flex-start" }]}>
+      <View style={[styles.headView ]}>
+      <Text style={[styles.titrePage]}>
         {titre}
       </Text>
       <Pressable
@@ -304,20 +304,21 @@ const state = useSelector((state) => state);
               )
         }
         style={{
-          position: "absolute",
-          top: 100,
-          right: -40,
-          width: 60,
-          height: 60,
-          padding: 15,
+          position: 'absolute',
+          top: -10,
+          right: 0,
+          width: 40,
+          height: 40,
+          padding: 5,
           backgroundColor: '#221f1f',
-          borderRadius: 30
+          borderRadius: 30,
+          flex:2
         }}
       >
         <View
           style={{
             position: "absolute",
-            top: 10,
+            top: 0,
             borderRadius: 16,
             width: 20,
             height: 20,
@@ -325,7 +326,7 @@ const state = useSelector((state) => state);
             alignItems: "center",
             backgroundColor: "#f26522",
             zIndex: 1, 
-            marginLeft: 8,
+            marginLeft: -3,
           }}
         >
           <Text style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>

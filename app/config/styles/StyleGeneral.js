@@ -165,15 +165,14 @@ export default StyleSheet.create({
     headView: {
      width: '100%',
      flexDirection: "row",
-     alignItems: 'flex-end',
-     right: 0,
-     borderBottomWidth: 0
+     borderBottomWidth: 0,
+     alignContent: 'flex-end',
    },
     titrePage: {
      fontSize: 20,
      fontWeight: "bold",
-       width: '100%',
-       textAlign: 'right'
+       width: "ios" === Platform.OS ? '100%':'80%',
+       textAlign: 'center',
     },
     
     favorisBtn: {
@@ -447,6 +446,7 @@ export default StyleSheet.create({
       },
       headerLeft: {
         paddingLeft: 15,
+        left: 10,
       },
       panierIcon: {
         backgroundColor: "#F0F0F3",

@@ -138,9 +138,10 @@ const ProgrammeHeader = () => {
     return (
       <View style={[{
         shadowOpacity: 0.5,
-        //zIndex:10,
-        shadowRadius: 5
-        ,backgroundColor: '#fff', 
+        zIndex:0,
+        shadowRadius: 5,
+        backgroundColor: '#fff', 
+        position: 'relative',
         //padding: 10,
         //  paddingTop: 0, 
         //  display: isLoading ? "none" : "flex"
